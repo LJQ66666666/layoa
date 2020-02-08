@@ -9,4 +9,6 @@ public interface RoleDao extends BaseDao<Role> {
 
 	Role findByRoleName(String roleName);//根据角色名称查询一个实例
 
+	Integer getCount();
+
 }
