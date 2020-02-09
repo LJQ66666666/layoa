@@ -12,7 +12,7 @@ public interface RoleService {
 
 	Integer getCount();
 
-	List<Role> findAllRole();
+	List<Role> findAllRoleByPage(Integer page, Integer limit);
 
 	Long doDeleteRole(Long rowId);//根据ID删除一个角色
 

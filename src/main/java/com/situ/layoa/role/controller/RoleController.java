@@ -68,7 +68,7 @@ public class RoleController implements Serializable {
 		System.out.println(page);
 		System.out.println(limit);
 		Integer count = roleService.getCount();
-		List<Role> roleList = roleService.findAllRole();
+		List<Role> roleList = roleService.findAllRoleByPage(page,limit);
 		return new LayResult(0, "", count, roleList);
 	}
 

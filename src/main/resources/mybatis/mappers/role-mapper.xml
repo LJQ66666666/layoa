@@ -16,7 +16,8 @@
 		VALUES(#{roleName},#{roleCode},#{roleKind},#{roleInfo},#{activeFlag},#{createBy},#{createDate})
 	</insert>
 	<select id="findByRoleName" resultType="Role">
-		<include refid="role_base_select"/> AND ROLE_NAME = #{roleName}
+		<include refid="role_base_select" />
+		AND ROLE_NAME = #{roleName}
 	</select>
 	<select id="find" resultType="Role">
 		<include refid="role_base_select" />
@@ -55,4 +56,9 @@
 		</set>
 		WHERE ROW_ID = #{rowId}
 	</update>
+	<!-- 分页查询？ -->
+	<select id="findByPage" resultType="Role">
+		<include refid="role_base_select" />
+		LIMIT #{firstResult},#{maxResults}
+	</select>
 </mapper>
