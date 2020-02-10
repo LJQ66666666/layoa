@@ -9,6 +9,8 @@
 	<sql id="role_base_column">
 		ROLE_NAME, ROLE_CODE,ROLE_KIND,ROLE_INFO,ACTIVE_FLAG,CREATE_BY, CREATE_DATE
 	</sql>
+
+
 	<insert id="save" parameterType="Role" useGeneratedKeys="true" keyProperty="rowId" keyColumn="ROW_ID">
 		INSERT INTO TB_ROLE(
 		<include refid="role_base_column" />
@@ -56,9 +58,38 @@
 		</set>
 		WHERE ROW_ID = #{rowId}
 	</update>
+	<select id="getByName" resultType="Role">
+		<include refid="role_base_select" />
+		AND ROLE_NAME = #{roleName}
+	</select>
 	<!-- 分页查询？ -->
 	<select id="findByPage" resultType="Role">
 		<include refid="role_base_select" />
-		LIMIT #{firstResult},#{maxResults}
+		<!-- 引入多条件查询的语句 -->
+		<include refid="search_fragement" />
+		LIMIT #{pagination.firstResult},#{pagination.maxResult}
 	</select>
+	<!-- 拼接多条件查询的SQL语句 -->
+	<sql id="search_fragement">
+		<if test="searchParam!=null">
+			<if test="searchParam.rowId!=null">
+				AND ROW_ID=#{searchParam.rowId}
+			</if>
+			<if test="searchParam.roleName!=null">
+				AND ROLE_NAME=#{searchParam.roleName}
+			</if>
+			<if test="searchParam.roleCode!=null">
+				AND ROLE_CODE=#{searchParam.roleCode}
+			</if>
+			<if test="searchParam.roleKind!=null">
+				AND ROLE_KIND=#{searchParam.roleKind}
+			</if>
+			<if test="searchParam.roleInfo!=null">
+				AND ROLE_INFO=#{searchParam.roleInfo}
+			</if>
+			<if test="searchParam.activeFlag!=null">
+				AND ACTIVE_FLAG=#{searchParam.activeFlag}
+			</if>
+		</if>
+	</sql>
 </mapper>
